@@ -43,7 +43,7 @@ async def resolve_client(ctx, connection_id: str = "") -> StatsigClient:
     return StatsigClient(console_api_key=conn["console_api_key"], base_url=conn.get("base_url", ""))
 
 @chat.function("connect_statsig_connector", "Connect Statsig account via credentials.", action_type="write", chain_callable=True, event="statsig-connector.connect_statsig_connector", effects=["create:connection"], data_model=ConnectionRecord)
-async def connect_statsig_connector(params: ConnectParams, ctx) -> ActionResult:
+async def connect_statsig_connector(ctx, params: ConnectParams) -> ActionResult:
     client = StatsigClient(console_api_key=params.console_api_key, base_url=params.base_url)
     res = await client.verify_auth()
     if res.get("status") == "error":
@@ -78,7 +78,7 @@ async def connect_statsig_connector(params: ConnectParams, ctx) -> ActionResult:
     return ActionResult.success(safe_rec, summary=f"Connected Statsig ({rec['label']}).")
 
 @chat.function("list_connections", "List configured Statsig connections.", action_type="read", chain_callable=True, event="statsig-connector.list_connections", effects=["read:connections"], data_model=ConnectionList)
-async def list_connections(params: NoParams, ctx) -> ActionResult:
+async def list_connections(ctx, params: NoParams) -> ActionResult:
     conns = await _load_conns(ctx)
     items = [{
         "id": c["id"],
@@ -90,7 +90,7 @@ async def list_connections(params: NoParams, ctx) -> ActionResult:
     return ActionResult.success({"connections": items, "total": len(items)}, summary=f"Found {len(items)} connection(s).")
 
 @chat.function("disconnect_statsig_connector", "Disconnect Statsig account and delete stored credentials.", action_type="destructive", chain_callable=True, event="statsig-connector.disconnect_statsig_connector", effects=["delete:connection"], data_model=DeleteResult)
-async def disconnect_statsig_connector(params: ConnectionIdParams, ctx) -> ActionResult:
+async def disconnect_statsig_connector(ctx, params: ConnectionIdParams) -> ActionResult:
     conns = await _load_conns(ctx)
     if not conns:
         return ActionResult.error("No connections to disconnect.")

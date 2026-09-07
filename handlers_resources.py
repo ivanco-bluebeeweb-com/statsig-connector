@@ -10,7 +10,7 @@ from schemas import (
 from handlers_connection import resolve_client
 
 @chat.function("list_gates", "List gates in Statsig.", action_type="read", chain_callable=True, event="statsig-connector.list_gates", effects=["read:gates"], data_model=GateList)
-async def list_gates(params: ListGateParams, ctx) -> ActionResult:
+async def list_gates(ctx, params: ListGateParams) -> ActionResult:
     client = await resolve_client(ctx, params.connection_id)
     try:
         raw_items = await client.list_gates(limit=params.limit)
@@ -30,7 +30,7 @@ async def list_gates(params: ListGateParams, ctx) -> ActionResult:
         return ActionResult.error(f"Error listing gates: {e}")
 
 @chat.function("get_gate", "Get details of one Gate in Statsig.", action_type="read", chain_callable=True, event="statsig-connector.get_gate", effects=["read:gate"], data_model=GateRecord)
-async def get_gate(params: GetGateParams, ctx) -> ActionResult:
+async def get_gate(ctx, params: GetGateParams) -> ActionResult:
     client = await resolve_client(ctx, params.connection_id)
     try:
         r = await client.get_gate(params.gate_id)
@@ -47,7 +47,7 @@ async def get_gate(params: GetGateParams, ctx) -> ActionResult:
         return ActionResult.error(f"Error retrieving Gate: {e}")
 
 @chat.function("audit_gate_health", "Audit health of Statsig gates and connectivity.", action_type="read", chain_callable=True, event="statsig-connector.audit_gate_health", effects=["read:audit"], data_model=AuditHealthReport)
-async def audit_gate_health(params: ConnectionIdParams, ctx) -> ActionResult:
+async def audit_gate_health(ctx, params: ConnectionIdParams) -> ActionResult:
     client = await resolve_client(ctx, params.connection_id)
     try:
         items = await client.list_gates(limit=50)
