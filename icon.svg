@@ -1,11 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <defs>
-    <linearGradient id="convertk-bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#2563EB"/>
-      <stop offset="1" stop-color="#1D4ED8"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="14" fill="url(#convertk-bg)"/>
-  <circle cx="32" cy="32" r="16" fill="white" opacity="0.9"/>
-  <text x="32" y="38" font-size="18" font-family="sans-serif" font-weight="bold" text-anchor="middle" fill="#1D4ED8">CO</text>
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M102.458 37.5637L72.0313 83.0533L57.3972 61.2394L23.4961 111.778L23.6433 112.002H84.6434C86.7421 112.002 88.7068 110.958 89.8711 109.218L117.873 67.4528C119.274 65.3603 119.274 62.6408 117.873 60.5483L102.452 37.5509H102.458V37.5637Z" fill="#1B2528"/>
+<path d="M57.4205 43.2481L72.0418 65.049L104.849 16.0018H44.0917C41.9929 16.0018 40.0285 17.0448 38.8639 18.7789L10.8625 60.5378C9.46119 62.6302 9.46119 65.3499 10.8625 67.4423L26.0214 90.0491L57.4205 43.2481Z" fill="#1B2528"/>
 </svg>
